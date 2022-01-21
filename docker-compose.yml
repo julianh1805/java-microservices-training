@@ -1,15 +1,29 @@
 services:
-  postgres:
-    container_name: postgres
+  postgres-customer:
+    container_name: postgres-customer
     image: postgres
     environment:
-      POSTGRES_USER: amigoscode
-      POSTGRES_PASSWORD: password
-      PGDATA: /data/postgres
+      POSTGRES_USER: admin-customer
+      POSTGRES_PASSWORD: password-customer
+      PGDATA: /data/postgres-customer
     volumes:
-      - postgres:/data/postgres
+      - postgres-customer:/data/postgres-customer
     ports:
       - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  postgres-fraud:
+    container_name: postgres-fraud
+    image: postgres
+    environment:
+      POSTGRES_USER: admin-fraud
+      POSTGRES_PASSWORD: password-fraud
+      PGDATA: /data/postgres-fraud
+    volumes:
+      - postgres-fraud:/data/postgres-fraud
+    ports:
+      - "5433:5432"
     networks:
       - postgres
     restart: unless-stopped
@@ -31,5 +45,6 @@ networks:
   postgres:
     driver: bridge
 volumes:
-  postgres:
+  postgres-customer:
+  postgres-fraud:
   pgadmin:
