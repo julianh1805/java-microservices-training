@@ -1,4 +1,4 @@
-package com.julianhusson.customer;
+package com.julianhusson.fraud;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,20 +9,20 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
 @Builder
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
-
+@Entity
+public class FraudCheckHistory {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID" , strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private UUID customerId;
+    private Boolean isFraudster;
+    private LocalDateTime createdAt;
 }
